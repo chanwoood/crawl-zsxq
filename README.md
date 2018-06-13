@@ -7,9 +7,7 @@
 
 ## 效果图
 
-
-
-![image.png | left | 827x448](https://cdn.yuque.com/yuque/0/2018/png/104735/1528856656437-1e9f1220-873e-41e4-8e8b-4bab75201244.png "")
+![效果图.png](https://upload-images.jianshu.io/upload_images/5690299-9541835d84d9d635.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ## 模拟登陆
