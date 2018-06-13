@@ -13,7 +13,9 @@
 ## 模拟登陆
 
 爬取的是网页版知识星球，[https://wx.zsxq.com/dweb/#](https://wx.zsxq.com/dweb/#)。
+
 这个网站并不是依靠 cookie 来判断你是否登录，而是请求头中的 Authorization 字段。
+
 所以，需要把 Authorization，User-Agent 换成你自己的。（注意 User-Agent 也要换成你自己的）
 
 ```python
@@ -26,11 +28,12 @@ headers = {
 ## 分析页面
 
 登录成功后，一般我习惯右键、检查或者查看源代码。
+
 但是这个页面比较特殊，它不把内容放到当前地址栏 URL 下，而是通过异步加载（XHR），只要找对接口就可以了。
+
 精华区的接口：[https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&count=20](https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&count=20)
+
 这个接口是最新 20 条数据的，还有后面数据对应不同接口，暂时还没搞。
-
-
 
 ![image.png | left | 827x710](https://cdn.yuque.com/yuque/0/2018/png/104735/1528857296860-38ce73bf-5ae7-406e-8462-10d1a298b8d0.png "")
 
