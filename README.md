@@ -54,8 +54,11 @@ headers = {
 ## 爬取图片
 
 很明显，在返回的数据中的 images 键就是图片，只需提取 large 的，即高清的 url 即可。
+
 关键在于将图片标签 img 插入到 HTML 文档。
+
 我使用 BeautifulSoup 操纵 DOM 的方式。
+
 需要注意的是，有可能图片不止一张，所以需要用 for 循环全部迭代出来
 
 ```python
@@ -95,4 +98,4 @@ end_time = create_time[:20]+str(int(create_time[20:23])-1)+create_time[23:]
 
 
 
-## Old iron, give me a star !!!
+## 最难搞的问题是：Old iron, give me a star !!!
