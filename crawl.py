@@ -3,6 +3,7 @@ import json
 import os
 import pdfkit
 from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 html_template = """
 <!DOCTYPE html>
@@ -16,10 +17,11 @@ html_template = """
 </body>
 </html>
 """
+htmls = []
 
-def get_data():
+def get_data(url):
 
-    url = 'https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&count=20'
+    global htmls
         
     headers = {
         'Authorization': 'F375A8D1-2120-5880-FDCD-8E550ECBxxxx',
@@ -29,7 +31,6 @@ def get_data():
     with open('stormzhang.json', 'w', encoding='utf-8') as f:        # 将返回数据写入 a.json 方便查看
         f.write(json.dumps(rsp.json(), indent=2, ensure_ascii=False))
 
-    htmls = []
     with open('stormzhang.json', encoding='utf-8') as f:
         for topic in json.loads(f.read()).get('resp_data').get('topics'):
             content = topic.get('question', topic.get('talk', topic.get('task')))
@@ -58,6 +59,17 @@ def get_data():
                 html = html_answer.format(title=title, text=text)
 
             htmls.append(html)
+
+    next_page = rsp.json().get('resp_data').get('topics')
+    if next_page:
+        create_time = next_page[-1].get('create_time')
+        end_time = create_time[:20]+str(int(create_time[20:23])-1)+create_time[23:]
+        end_time = quote(end_time)
+        next_url = start_url + '&end_time=' + end_time
+        print(next_url)
+        get_data(next_url)
+
+
     return htmls
 
 def make_pdf(htmls):
@@ -92,4 +104,5 @@ def make_pdf(htmls):
     print("已制作电子书 stormzhang.pdf 在当前目录！")
     
 if __name__ == '__main__':
-    make_pdf(get_data())
+    start_url = 'https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&count=20'
+    make_pdf(get_data(start_url))
