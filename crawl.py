@@ -2,6 +2,7 @@ import requests
 import json
 import os
 import pdfkit
+from bs4 import BeautifulSoup
 
 html_template = """
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ html_template = """
     <meta charset="UTF-8">
 </head>
 <body>
-<h3>{title}</h3>
+<h1>{title}</h1>
 <p>{text}</p>
 </body>
 </html>
@@ -21,8 +22,8 @@ def get_data():
     url = 'https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&count=20'
         
     headers = {
-        'Authorization': '3704A4EE-377E-1C88-B030-0A42D9E9Bxxx',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36'
+        'Authorization': 'F375A8D1-2120-5880-FDCD-8E550ECBxxxx',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.170 Safari/537.36'
     }
     rsp = requests.get(url, headers=headers)
     with open('stormzhang.json', 'w', encoding='utf-8') as f:        # 将返回数据写入 a.json 方便查看
@@ -35,7 +36,27 @@ def get_data():
             # print(content)
             text = content.get('text')
             title = text[:6]
-            html = html_template.format(title=title, text=text)
+
+            if content.get('images'):
+                soup = BeautifulSoup(html_template, 'html.parser')
+                for img in content.get('images'):
+                    url = img.get('large').get('url')
+                    img_tag = soup.new_tag('img', src=url)
+                    soup.body.append(img_tag)
+                    html_img = str(soup)
+                    html = html_img.format(title=title, text=text)
+            else:
+                html = html_template.format(title=title, text=text)
+
+            if topic.get('question'):
+                answer = topic.get('answer').get('text')
+                soup = BeautifulSoup(html, 'html.parser')
+                answer_tag = soup.new_tag('p')
+                answer_tag.string = answer
+                soup.body.append(answer_tag)
+                html_answer = str(soup)
+                html = html_answer.format(title=title, text=text)
+
             htmls.append(html)
     return htmls
 
