@@ -19,6 +19,8 @@ if __name__ == '__main__':
 
 把 start_url 改为你需要爬取的星球的相应 url 。
 
+还有安装好 wkhtmltox ，参考后面的「制作 PDF 电子书」。
+
 ## 模拟登陆
 
 爬取的是网页版知识星球，[https://wx.zsxq.com/dweb/#](https://wx.zsxq.com/dweb/#)。
