@@ -1,0 +1,16 @@
+h1 {font-size:40px; color:red; text-align:center;}
+p {font-size:30px;}
+img{
+	max-width:100%;
+	margin:20px auto;
+	height:auto;
+	border:0;
+	outline:0
+	-webkit-box-shadow: 1px 4px 16px 8px #5CA2BE;
+    -moz-box-shadow: 1px 4px 16px 8px #5CA2BE;
+    box-shadow: 1px 4px 16px 8px #5CA2BE;
+    /*set the images aligned*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+	}

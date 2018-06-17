@@ -7,7 +7,7 @@
 
 ## 效果图
 
-![效果图.png](https://upload-images.jianshu.io/upload_images/5690299-9541835d84d9d635.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![效果图.png](https://upload-images.jianshu.io/upload_images/5690299-7aac8142d7794a17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ## 模拟登陆
@@ -94,8 +94,17 @@ end_time = create_time[:20]+str(int(create_time[20:23])-1)+create_time[23:]
 
 故以 `next_page = rsp.json().get('resp_data').get('topics')` 来判断是否有下一页。
 
-最后，还有一些小问题，例如正文字体过小，图片跨页，有些把正文当作了标题等等，都是些琐碎问题，不打算搞了。
+## 制作精美 PDF
 
+通过 css 样式来控制字体大小、布局、颜色等，详见 test.css 文件。
 
+再将此文件引入到 options 字段中。
 
-## 最难搞的问题是：Old iron, give me a star !!!
+```python
+    options = {
+        "user-style-sheet": "test.css",
+        ...
+        }
+```
+
+## 最难搞的问题是：Old iron, give me a star ! ! !
