@@ -30,7 +30,7 @@ def get_data(url):
     }
     
     rsp = requests.get(url, headers=headers)
-    with open('test.json', 'w', encoding='utf-8') as f:        # 将返回数据写入 a.json 方便查看
+    with open('test.json', 'w', encoding='utf-8') as f:        # 将返回数据写入 test.json 方便查看
         f.write(json.dumps(rsp.json(), indent=2, ensure_ascii=False))
     
     with open('test.json', encoding='utf-8') as f:
