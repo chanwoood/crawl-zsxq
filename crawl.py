@@ -19,14 +19,14 @@ html_template = """
 </html>
 """
 htmls = []
-
+num = 0
 def get_data(url):
 
-    global htmls
+    global htmls, num
         
     headers = {
-        'Authorization': '0E9AB154-D6F6-3363-475B-D62688B5xxxx',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36'
+        'Authorization': 'AA2E47E0-713F-DDF8-23F3-DF4DB180xxxx',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.170 Safari/537.36'
     }
     
     rsp = requests.get(url, headers=headers)
@@ -39,7 +39,8 @@ def get_data(url):
             # print(content)
             text = content.get('text')
             text = re.sub(r'<[^>]*>', '', text).strip()
-            title = text[:9]
+            title = str(num) + text[:9]
+            num += 1
 
             if content.get('images'):
                 soup = BeautifulSoup(html_template, 'html.parser')

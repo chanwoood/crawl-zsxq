@@ -9,6 +9,15 @@
 
 ![效果图.png](https://upload-images.jianshu.io/upload_images/5690299-7aac8142d7794a17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+## 用法
+
+```python
+if __name__ == '__main__':
+    start_url = 'https://api.zsxq.com/v1.10/groups/454584445828/topics?scope=digests&count=20'
+    make_pdf(get_data(start_url))
+```
+
+把 start_url 改为你需要爬取的星球的相应 url 。
 
 ## 模拟登陆
 
