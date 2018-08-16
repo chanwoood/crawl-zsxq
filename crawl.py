@@ -25,8 +25,8 @@ def get_data(url):
     global htmls, num
         
     headers = {
-        'Authorization': 'AA2E47E0-713F-DDF8-23F3-DF4DB180xxxx',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.170 Safari/537.36'
+        'Authorization': '0541E21B-137C-5378-DDDC-C73CBF5xxxx',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36'
     }
     
     rsp = requests.get(url, headers=headers)
@@ -37,7 +37,7 @@ def get_data(url):
         for topic in json.loads(f.read()).get('resp_data').get('topics'):
             content = topic.get('question', topic.get('talk', topic.get('task', topic.get('solution'))))
             # print(content)
-            text = content.get('text')
+            text = content.get('text', '')
             text = re.sub(r'<[^>]*>', '', text).strip()
             title = str(num) + text[:9]
             num += 1
@@ -54,7 +54,7 @@ def get_data(url):
                 html = html_template.format(title=title, text=text)
 
             if topic.get('question'):
-                answer = topic.get('answer').get('text')
+                answer = topic.get('answer').get('text', "")
                 soup = BeautifulSoup(html, 'html.parser')
                 answer_tag = soup.new_tag('p')
                 answer_tag.string = answer
@@ -69,9 +69,9 @@ def get_data(url):
         create_time = next_page[-1].get('create_time')
         end_time = create_time[:20]+str(int(create_time[20:23])-1)+create_time[23:]
         end_time = quote(end_time)
+        if len(end_time) == 33:
+            end_time = end_time[:24] + '0' + end_time[24:]
         next_url = start_url + '&end_time=' + end_time
-        if len(next_url) == 119:
-            next_url = next_url[:110] + '0' + next_url[110:]
         print(next_url)
         get_data(next_url)
 
@@ -100,15 +100,15 @@ def make_pdf(htmls):
         "outline-depth": 10,
     }
     try:
-        pdfkit.from_file(html_files, "万人学习分享群.pdf", options=options)
+        pdfkit.from_file(html_files, "电子书.pdf", options=options)
     except Exception as e:
         pass
 
     for file in html_files:
         os.remove(file)
 
-    print("已制作电子书 「万人学习分享群.pdf」 在当前目录！")
+    print("已制作电子书在当前目录！")
     
 if __name__ == '__main__':
-    start_url = 'https://api.zsxq.com/v1.10/groups/454584445828/topics?scope=digests&count=20'
+    start_url = 'https://api.zsxq.com/v1.10/groups/8424258282/topics?scope=digests&count=20'
     make_pdf(get_data(start_url))
