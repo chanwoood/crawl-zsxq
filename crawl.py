@@ -39,6 +39,7 @@ def get_data(url):
             # print(content)
             text = content.get('text', '')
             text = re.sub(r'<[^>]*>', '', text).strip()
+            text = text.replace('\n', '<br>')
             title = str(num) + text[:9]
             num += 1
 
