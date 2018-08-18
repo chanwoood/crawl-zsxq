@@ -25,8 +25,8 @@ def get_data(url):
     global htmls, num
         
     headers = {
-        'Authorization': '0541E21B-137C-5378-DDDC-C73CBF5xxxx',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36'
+        'Authorization': 'DD282FEB-EDD7-A50E-6C94-344947B6E723',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'
     }
     
     rsp = requests.get(url, headers=headers)
@@ -67,7 +67,11 @@ def get_data(url):
     next_page = rsp.json().get('resp_data').get('topics')
     if next_page:
         create_time = next_page[-1].get('create_time')
-        end_time = create_time[:20]+str(int(create_time[20:23])-1)+create_time[23:]
+        if create_time[20:23] == "000":
+            end_time = create_time[:20]+"999"+create_time[23:]
+        else :
+            res = int(create_time[20:23])-1
+            end_time = create_time[:20]+str(res).zfill(3)+create_time[23:] # zfill 函数补足结果前面的零，始终为3位数
         end_time = quote(end_time)
         if len(end_time) == 33:
             end_time = end_time[:24] + '0' + end_time[24:]
@@ -108,7 +112,7 @@ def make_pdf(htmls):
         os.remove(file)
 
     print("已制作电子书在当前目录！")
-    
+
 if __name__ == '__main__':
     start_url = 'https://api.zsxq.com/v1.10/groups/8424258282/topics?scope=digests&count=20'
     make_pdf(get_data(start_url))
