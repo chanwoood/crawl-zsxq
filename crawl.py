@@ -25,8 +25,10 @@ def get_data(url):
     global htmls, num
         
     headers = {
-        'Authorization': 'DD282FEB-EDD7-A50E-6C94-344947B6E723',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'
+        'Cookie':'UM_distinctid=165ecede306116a-083654f0777282-34607908-13c680-165ecede3075fd',
+        'Cookie':'sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%2216846276920ae3-0e9d710efddd66-10336654-1296000-16846276921bf%22%2C%22%24device_id%22%3A%2216846276920ae3-0e9d710efddd66-10336654-1296000-16846276921bf%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_referrer%22%3A%22%22%2C%22%24latest_referrer_host%22%3A%22%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%7D%7D',
+        'Cookie':'zsxq_access_token=9540C63F-C4D5-5461-C3ED-9376940BFCAA',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
     }
     
     rsp = requests.get(url, headers=headers)
